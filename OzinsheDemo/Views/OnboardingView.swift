@@ -10,12 +10,12 @@ import SnapKit
 
 class OnboardingView: UIView {
     
-    lazy var nextButton = {
+    lazy var onboardingButton = {
         let button = UIButton(type: .custom)
         
         button.setTitle("Өткізу", for: .normal)
         button.layer.cornerRadius = 8
-        button.titleLabel?.font = UIFont(name:"SFProDisplay-Bold", size: 12)
+        button.titleLabel?.font = UIFont(name:"SFProDisplay-Regular", size: 12)
         button.setTitleColor(UIColor(named: "111827"), for: UIControl.State.normal)
         button.backgroundColor = UIColor(named: "F9FAFB")
         
@@ -47,22 +47,47 @@ class OnboardingView: UIView {
         return label
     }()
     
+    let subtitleTexts = ("Фильмдер, телехикаялар, ситкомдар, анимациялық жобалар, телебағдарламалар мен реалити-шоулар, аниме және тағы басқалары", "Кез келген құрылғыдан қара Сүйікті фильміңді  қосымша төлемсіз телефоннан, планшеттен, ноутбуктан қара", "Тіркелу оңай. Қазір тіркел де қалаған фильміңе қол жеткіз")
+    
     lazy var subtitleLabel = {
         let label = UILabel()
         
-        label.text = """
-        Фильмдер, телехикаялар, ситкомдар,
-        анимациялық жобалар, телебағдарламалар 
-        мен реалити-шоулар, аниме және тағы басқалары
-"""
+        label.text = subtitleTexts.0
         
         label.font = UIFont(name: "SFProDisplay-Regular", size: 14)
         
         label.textColor = UIColor(named: "9CA3AF")
         label.textAlignment = .center
         label.numberOfLines = 0
-        
+        label.lineBreakMode = .byWordWrapping
+
         return label
+    }()
+    
+    lazy var sliderImageView = {
+        let imageView = UIImageView()
+        
+        imageView.image = UIImage(named: "Slider Indicator-1")
+        
+        imageView.contentMode = .scaleAspectFit
+        
+        imageView.clipsToBounds = true
+        
+        return imageView
+    }()
+    
+    lazy var nextButton = {
+        let button = UIButton(type: .custom)
+        
+        button.setTitle("Әрі қарай", for: .normal)
+        button.layer.cornerRadius = 12
+        button.titleLabel?.font = UIFont(name:"SFProDisplay-Regular", size: 16)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = UIColor(named: "7E2DFC")
+        button.isEnabled = false
+        button.isHidden = true
+        
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -78,9 +103,11 @@ class OnboardingView: UIView {
     func setupUI(){
         
         addSubview(backgroundImageView)
-        addSubview(nextButton)
+        addSubview(onboardingButton)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
+        addSubview(sliderImageView)
+        addSubview(nextButton)
         
         backgroundImageView.snp.makeConstraints { (make) in
             make.verticalEdges.equalToSuperview()
@@ -89,12 +116,13 @@ class OnboardingView: UIView {
         }
         
         //nextButton
-        nextButton.snp.makeConstraints { (make) in
+        onboardingButton.snp.makeConstraints { (make) in
             make.top.equalTo(backgroundImageView).inset(60)
             make.right.equalTo(backgroundImageView).inset(16)
             make.width.equalTo(70)
             make.height.equalTo(24)
         }
+        onboardingButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         
         titleLabel.snp.makeConstraints { (make) in
             make.right.equalToSuperview().inset(40)
@@ -111,7 +139,43 @@ class OnboardingView: UIView {
             make.bottom.equalToSuperview().inset(198)
             
         }
+        
+        sliderImageView.snp.makeConstraints { (make) in
+            make.right.equalToSuperview().inset(168)
+            make.left.equalToSuperview().inset(167)
+            make.top.equalToSuperview().inset(654)
+            make.bottom.equalToSuperview().inset(152)
+            make.width.equalTo(40)
+            make.height.equalTo(6)
+        }
+        nextButton.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().inset(684)
+            make.right.equalToSuperview().inset(24)
+            make.left.equalToSuperview().inset(24)
+            make.bottom.equalToSuperview().inset(72)
+            make.width.equalTo(327)
+            make.height.equalTo(56)
+        }
 
     }
+    private var buttonTapCount = 0
 
+    @objc func nextButtonTapped() {
+        buttonTapCount += 1
+        if buttonTapCount == 1 {
+            backgroundImageView.image = UIImage(named: "Image-8")
+            sliderImageView.image = UIImage(named: "Slider Indicator-2")
+            titleLabel.text = "ÖZINŞE-ге қош келдің!"
+            subtitleLabel.text = subtitleTexts.1
+        }
+        else if buttonTapCount == 2 {
+            backgroundImageView.image = UIImage(named: "Image-9")
+            sliderImageView.image = UIImage(named: "Slider Indicator-3")
+            titleLabel.text = "ÖZINŞE-ге қош келдің!"
+            subtitleLabel.text = subtitleTexts.2
+            onboardingButton.isHidden = true
+            nextButton.isEnabled = true
+            nextButton.isHidden = false
+        }
+    }
 }
