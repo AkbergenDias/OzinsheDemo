@@ -115,14 +115,13 @@ class OnboardingView: UIView {
             make.center.equalToSuperview()
         }
         
-        //nextButton
         onboardingButton.snp.makeConstraints { (make) in
             make.top.equalTo(backgroundImageView).inset(60)
             make.right.equalTo(backgroundImageView).inset(16)
             make.width.equalTo(70)
             make.height.equalTo(24)
         }
-        onboardingButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        onboardingButton.addTarget(self, action: #selector(onboardingButtonTapped), for: .touchUpInside)
         
         titleLabel.snp.makeConstraints { (make) in
             make.right.equalToSuperview().inset(40)
@@ -149,18 +148,22 @@ class OnboardingView: UIView {
             make.height.equalTo(6)
         }
         nextButton.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().inset(684)
-            make.right.equalToSuperview().inset(24)
-            make.left.equalToSuperview().inset(24)
-            make.bottom.equalToSuperview().inset(72)
             make.width.equalTo(327)
             make.height.equalTo(56)
+            make.top.equalTo(sliderImageView).inset(24)
+            make.bottom.equalToSuperview().inset(72)
+            make.right.equalToSuperview().inset(24)
+            make.left.equalToSuperview().inset(24)
         }
+        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+
 
     }
+    
+    // MARK: I suppose this should be in OnboardingVC
     private var buttonTapCount = 0
 
-    @objc func nextButtonTapped() {
+    @objc func onboardingButtonTapped() {
         buttonTapCount += 1
         if buttonTapCount == 1 {
             backgroundImageView.image = UIImage(named: "Image-8")
@@ -177,5 +180,9 @@ class OnboardingView: UIView {
             nextButton.isEnabled = true
             nextButton.isHidden = false
         }
+    }
+    
+    @objc func nextButtonTapped() {
+        buttonTapCount += 1
     }
 }
