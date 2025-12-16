@@ -54,7 +54,7 @@ class OnboardingView: UIView {
         
         label.text = subtitleTexts.0
         
-        label.font = UIFont(name: "SFProDisplay-Regular", size: 14)
+        label.font = UIFont(name: "SFProDisplay-Medium", size: 14)
         
         label.textColor = UIColor(named: "9CA3AF")
         label.textAlignment = .center
@@ -81,7 +81,7 @@ class OnboardingView: UIView {
         
         button.setTitle("Әрі қарай", for: .normal)
         button.layer.cornerRadius = 12
-        button.titleLabel?.font = UIFont(name:"SFProDisplay-Regular", size: 16)
+        button.titleLabel?.font = UIFont(name:"SFProDisplay-Bold", size: 16)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(named: "7E2DFC")
         button.isEnabled = false
@@ -150,12 +150,11 @@ class OnboardingView: UIView {
         nextButton.snp.makeConstraints { (make) in
             make.width.equalTo(327)
             make.height.equalTo(56)
-            make.top.equalTo(sliderImageView).inset(24)
-            make.bottom.equalToSuperview().inset(72)
+            make.top.equalTo(sliderImageView.snp.bottom).offset(24)
             make.right.equalToSuperview().inset(24)
             make.left.equalToSuperview().inset(24)
         }
-        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(present), for: .touchUpInside)
 
 
     }
@@ -182,7 +181,11 @@ class OnboardingView: UIView {
         }
     }
     
-    @objc func nextButtonTapped() {
+    @objc func present(
+        _ viewControllerToPresent: LoginViewController,
+        animated flag: Bool,
+        completion: (() -> Void)? = nil
+    ) {
         buttonTapCount += 1
     }
 }
