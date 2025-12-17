@@ -154,7 +154,7 @@ class OnboardingView: UIView {
             make.right.equalToSuperview().inset(24)
             make.left.equalToSuperview().inset(24)
         }
-        nextButton.addTarget(self, action: #selector(present), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(show), for: .touchUpInside)
 
 
     }
@@ -181,11 +181,13 @@ class OnboardingView: UIView {
         }
     }
     
-    @objc func present(
-        _ viewControllerToPresent: LoginViewController,
-        animated flag: Bool,
-        completion: (() -> Void)? = nil
-    ) {
-        buttonTapCount += 1
-    }
+//    @objc func show(_ :LoginViewController, sender: Any?) -> Any? {
+//        buttonTapCount += 1
+//        return LoginViewController()
+//    }
+//    
+//    @objc func nextButtonTapped() {
+//        print("next button tapped")
+//        self.present(self.LoginViewController(), animated: true, completion: nil)
+//    }
 }
