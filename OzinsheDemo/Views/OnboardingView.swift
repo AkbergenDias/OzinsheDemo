@@ -154,7 +154,7 @@ class OnboardingView: UIView {
             make.right.equalToSuperview().inset(24)
             make.left.equalToSuperview().inset(24)
         }
-        nextButton.addTarget(self, action: #selector(show), for: .touchUpInside)
+//        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
 
 
     }
@@ -165,12 +165,14 @@ class OnboardingView: UIView {
     @objc func onboardingButtonTapped() {
         buttonTapCount += 1
         if buttonTapCount == 1 {
+            print("Onboarding button tapped")
             backgroundImageView.image = UIImage(named: "Image-8")
             sliderImageView.image = UIImage(named: "Slider Indicator-2")
             titleLabel.text = "ÖZINŞE-ге қош келдің!"
             subtitleLabel.text = subtitleTexts.1
         }
         else if buttonTapCount == 2 {
+            print("Onboarding button tapped")
             backgroundImageView.image = UIImage(named: "Image-9")
             sliderImageView.image = UIImage(named: "Slider Indicator-3")
             titleLabel.text = "ÖZINŞE-ге қош келдің!"
@@ -180,14 +182,15 @@ class OnboardingView: UIView {
             nextButton.isHidden = false
         }
     }
-    
-//    @objc func show(_ :LoginViewController, sender: Any?) -> Any? {
-//        buttonTapCount += 1
-//        return LoginViewController()
-//    }
-//    
+    let loginVC = LoginViewController()
+
 //    @objc func nextButtonTapped() {
-//        print("next button tapped")
-//        self.present(self.LoginViewController(), animated: true, completion: nil)
+//        buttonTapCount += 1
+//        if buttonTapCount == 3 {
+//            print("next button tapped")
+//            UINavigationController.show(loginVC, animated: true, completion: nil)
+//        } else {
+//            return
+//        }
 //    }
 }

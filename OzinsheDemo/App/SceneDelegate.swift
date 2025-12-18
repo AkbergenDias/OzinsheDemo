@@ -10,6 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var userX = User()
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -20,7 +21,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         
-        window?.rootViewController = OnboardingViewController()
+//        if (userX.loggedIn == false) {
+//            window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
+//        } else {
+//            window?.rootViewController = UINavigationController(rootViewController: TabBarViewController())
+//        }
+        window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
+
         
         window?.makeKeyAndVisible()
     }
