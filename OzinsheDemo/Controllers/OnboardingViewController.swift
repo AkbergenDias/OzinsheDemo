@@ -24,10 +24,6 @@ class OnboardingViewController: UIViewController {
         }
 
     }
-//    
-//    func pushToMain() {
-//        let mainViewController = TabBarViewController()
-//        navigationController?.pushViewController(mainViewController, animated: true)
-//    }
+
 
 }

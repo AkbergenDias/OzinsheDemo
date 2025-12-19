@@ -74,6 +74,10 @@ class LoginView: UIView {
             make.left.equalTo(imageView).inset(26)
             make.verticalEdges.equalTo(view).inset(16)
         }
+//      TODO: Make the emailfield go red if it's not valid Email
+//        if emailField.isValidEmail() == false {
+//            view.layer.borderColor = UIColor(named: "FF402B")?.cgColor
+//        }
         
         return view
     }()
@@ -260,7 +264,7 @@ class LoginView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    
+    // MARK: func SetupUI
     func setupUI(){
         
         addSubview(titleLabel)
@@ -339,6 +343,13 @@ class LoginView: UIView {
             make.height.equalTo(52)
         }
 
+    }
+    
+    //Copied this part
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,64}$"
+        let emailPredicate = NSPredicate(format: "SELF MATCHES[c] %@", emailRegex)
+        return emailPredicate.evaluate(with: email)
     }
 
 }

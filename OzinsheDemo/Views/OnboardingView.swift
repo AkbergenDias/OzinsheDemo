@@ -182,6 +182,7 @@ class OnboardingView: UIView {
             nextButton.isHidden = false
         }
     }
+// TODO: Use navigationController to show LoginView
     let loginVC = LoginViewController()
 
 //    @objc func nextButtonTapped() {
