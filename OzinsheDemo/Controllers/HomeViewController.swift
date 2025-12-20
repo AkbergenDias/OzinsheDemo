@@ -17,25 +17,38 @@ class HomeViewController: UIViewController {
         setupCollectionview()
 
     }
+    
+    lazy var logoImageView: UIImageView = {
+        let logo = UIImageView()
+        logo.image = UIImage(systemName: "logo-2")
+        return logo
+    }()
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemRed
+        view.backgroundColor = .white
         return view
     }()
     
     var sectionDataSoucre: [[UIColor]] = [
-        [.systemBlue, .black, .darkGray],
-        [.systemRed, .orange, .yellow]
+        [.systemBlue, .systemBlue, .systemBlue],
+        [.yellow, .yellow, .yellow]
     ]
     
     func setupUI() {
-        view.addSubview(collectionView)
+        view.addSubview(logoImageView)
+        self.view.addSubview(collectionView)
         
+        logoImageView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(60)
+            make.left.equalToSuperview().inset(24)
+        }
         collectionView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview().inset(132)
+            make.leading.trailing.bottom.equalToSuperview()
         }
         
     }
@@ -43,6 +56,7 @@ class HomeViewController: UIViewController {
         registerCells()
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.setCollectionViewLayout(createLayout(), animated: false)
         
     }
     
@@ -69,11 +83,12 @@ extension HomeViewController {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
       
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .absolute(44))
+                                              heightDimension: .absolute(240))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                          subitems: [item])
       
         let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous
         return section
     }
 }
@@ -88,6 +103,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.self.description(), for: indexPath) as! HomeCollectionViewCell
         cell.backgroundColor = sectionDataSoucre[indexPath.section][indexPath.item]
+        cell.layer.borderWidth = 16
         return cell
     }
     
