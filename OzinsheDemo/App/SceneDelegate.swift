@@ -27,7 +27,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        } else {
 //            window?.rootViewController = UINavigationController(rootViewController: TabBarViewController())
 //        }
-        window?.rootViewController = UINavigationController(rootViewController: HomeViewController())
+        let nav = UINavigationController(rootViewController: OnboardingViewController())
+        window?.rootViewController = nav
 
         
         window?.makeKeyAndVisible()

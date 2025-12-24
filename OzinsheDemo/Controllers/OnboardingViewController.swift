@@ -9,12 +9,13 @@ import UIKit
 import SnapKit
 
 class OnboardingViewController: UIViewController {
+    let onboardingView = OnboardingView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        let onboardingView = OnboardingView()
+        
         view.addSubview(onboardingView)
         
         onboardingView.snp.makeConstraints { make in
@@ -22,8 +23,13 @@ class OnboardingViewController: UIViewController {
             make.horizontalEdges.equalToSuperview()
             make.center.equalToSuperview()
         }
+        
+        onboardingView.onNextTapped = { [weak self] in
+                let vc = LoginViewController()
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
 
     }
-
+    
 
 }

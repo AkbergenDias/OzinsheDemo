@@ -10,6 +10,8 @@ import SnapKit
 
 class OnboardingView: UIView {
     
+    var onNextTapped: (() -> Void)?
+    
     lazy var onboardingButton = {
         let button = UIButton(type: .custom)
         
@@ -116,7 +118,7 @@ class OnboardingView: UIView {
         }
         
         onboardingButton.snp.makeConstraints { (make) in
-            make.top.equalTo(backgroundImageView).inset(60)
+            make.top.equalTo(backgroundImageView).inset(90)
             make.right.equalTo(backgroundImageView).inset(16)
             make.width.equalTo(70)
             make.height.equalTo(24)
@@ -154,12 +156,10 @@ class OnboardingView: UIView {
             make.right.equalToSuperview().inset(24)
             make.left.equalToSuperview().inset(24)
         }
-//        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
 
 
     }
-    
-    // MARK: I suppose this should be in OnboardingVC
     private var buttonTapCount = 0
 
     @objc func onboardingButtonTapped() {
@@ -182,16 +182,9 @@ class OnboardingView: UIView {
             nextButton.isHidden = false
         }
     }
-// TODO: Use navigationController to show LoginView
-    let loginVC = LoginViewController()
+    
+    @objc func nextButtonTapped() {
+        onNextTapped?()
+    }
 
-//    @objc func nextButtonTapped() {
-//        buttonTapCount += 1
-//        if buttonTapCount == 3 {
-//            print("next button tapped")
-//            UINavigationController.show(loginVC, animated: true, completion: nil)
-//        } else {
-//            return
-//        }
-//    }
 }
