@@ -10,8 +10,10 @@ import SnapKit
 
 class OnboardingView: UIView {
     
+    // This one responsible for the button that pushes into LoginVC
     var onNextTapped: (() -> Void)?
     
+    // MARK: UI elements
     lazy var onboardingButton = {
         let button = UIButton(type: .custom)
         
@@ -101,7 +103,7 @@ class OnboardingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    
+    // MARK: Setup UI function
     func setupUI(){
         
         addSubview(backgroundImageView)
@@ -160,6 +162,8 @@ class OnboardingView: UIView {
 
 
     }
+    
+    // MARK: UI functions
     private var buttonTapCount = 0
 
     @objc func onboardingButtonTapped() {
