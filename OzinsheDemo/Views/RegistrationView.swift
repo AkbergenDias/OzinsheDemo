@@ -1,28 +1,25 @@
 //
-//  LoginView.swift
+//  RegistrationView.swift
 //  OzinsheDemo
 //
-//  Created by Диас Акберген on 13.12.2025.
+//  Created by Диас Акберген on 29.12.2025.
 //
 
 import UIKit
-import SnapKit
 
-class LoginView: UIView {
-    
-    var onRegisterTapped: (() -> Void)?
+class RegistrationView: UIView {
     
     lazy var titleLabel = {
         let view = UIView()
         let label = UILabel()
         let subtitleLabel = UILabel()
         
-        label.text = "Сәлем!"
+        label.text = "Тіркелу!"
         label.font = UIFont(name:"SFProDisplay-Bold", size: 24)
         label.textColor = UIColor(named: "111827")
         label.textAlignment = .left
         
-        subtitleLabel.text = "Аккаунтқа кіріңіз"
+        subtitleLabel.text = "Деректерді толтырыңыз"
         subtitleLabel.font = UIFont(name:"SFProDisplay-Regular", size: 14)
         subtitleLabel.textColor = UIColor(named: "6B7280")
         subtitleLabel.textAlignment = .left
@@ -76,10 +73,10 @@ class LoginView: UIView {
             make.left.equalTo(imageView).inset(26)
             make.verticalEdges.equalTo(view).inset(16)
         }
-//      TODO: Make the emailfield go red if it's not valid Email
-//        if emailField.isValidEmail() == false {
-//            view.layer.borderColor = UIColor(named: "FF402B")?.cgColor
-//        }
+        //      TODO: Make the emailfield go red if it's not valid Email
+        //        if emailField.isValidEmail() == false {
+        //            view.layer.borderColor = UIColor(named: "FF402B")?.cgColor
+        //        }
         
         return view
     }()
@@ -94,7 +91,7 @@ class LoginView: UIView {
         
         return label
     }()
-
+    
     
     lazy var passwordFieldFrame = {
         let view = UIView()
@@ -134,16 +131,6 @@ class LoginView: UIView {
         return view
     }()
     
-    lazy var forgotPasswordButton = {
-        let button = UIButton()
-        
-        button.setTitle("Құпия сөзді ұмыттыңыз ба?", for: .normal)
-        button.setTitleColor(UIColor(named: "B376F7"), for: .normal)
-        button.titleLabel?.font = UIFont(name:"SFProDisplay-Medium", size: 14)
-        button.titleLabel?.textAlignment = .right
-        
-        return button
-    }()
     
     lazy var nextButton = {
         let button = UIButton(type: .custom)
@@ -187,85 +174,17 @@ class LoginView: UIView {
         return view
     }()
     
-    lazy var alternativeSignINLabel = {
-        let label = UILabel()
-        
-        label.text = "Немесе"
-        label.font = UIFont(name:"SFProDisplay-Medium", size: 14)
-        label.textColor = UIColor(named: "9CA3AF")
-        label.textAlignment = .center
-        
-        return label
-    }()
-
-    lazy var appleSSOButton = {
-        let view = UIView()
-        let button = UIButton(type: .custom)
-        let imageView = UIImageView(image: UIImage(named: "apple-logo"))
-
-        button.setTitle("Apple ID-мен тіркеліңіз", for: .normal)
-        button.titleLabel?.font = UIFont(name:"SFProDisplay-Medium", size: 14)
-        button.setTitleColor(UIColor(named: "111827"), for: UIControl.State.normal)
-        button.backgroundColor = .white
-        
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 12
-        view.layer.borderColor = UIColor(named: "E5E7EB")?.cgColor
-
-        view.addSubview(button)
-        view.addSubview(imageView)
-        
-        
-        button.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.verticalEdges.equalTo(view).inset(16)
-        }
-        imageView.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview().inset(18)
-            make.left.equalTo(view).inset(74)
-        }
-        
-        return view
-    }()
     
-    lazy var googleSSOButton = {
-        let view = UIView()
-        let button = UIButton(type: .custom)
-        let imageView = UIImageView(image: UIImage(named: "google-logo"))
-        
-        button.setTitle("Google-мен тіркеліңіз", for: .normal)
-        button.titleLabel?.font = UIFont(name:"SFProDisplay-Medium", size: 14)
-        button.setTitleColor(UIColor(named: "111827"), for: UIControl.State.normal)
-        button.backgroundColor = .white
-        
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 12
-        view.layer.borderColor = UIColor(named: "E5E7EB")?.cgColor
-
-        view.addSubview(button)
-        view.addSubview(imageView)
-        
-        button.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.verticalEdges.equalTo(view).inset(16)
-        }
-        imageView.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview().inset(18)
-            make.left.equalTo(view).inset(74)
-        }
-        
-        return view
-    }()
     
     override init(frame: CGRect) {
-            super.init(frame: frame)
-            setupUI()
+        super.init(frame: frame)
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: func SetupUI
     func setupUI(){
         
@@ -274,13 +193,9 @@ class LoginView: UIView {
         addSubview(loginFieldFrame)
         addSubview(passwordLabel)
         addSubview(passwordFieldFrame)
-        addSubview(forgotPasswordButton)
         addSubview(nextButton)
         addSubview(registerButton)
-        addSubview(alternativeSignINLabel)
-        addSubview(appleSSOButton)
-        addSubview(googleSSOButton)
-
+        
         titleLabel.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(24)
             make.top.equalToSuperview().inset(16)
@@ -306,11 +221,7 @@ class LoginView: UIView {
             make.top.equalToSuperview().inset(330)
         }
         
-        forgotPasswordButton.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(24)
-            make.top.equalToSuperview().inset(401)
-        }
-
+        
         nextButton.snp.makeConstraints { (make) in
             make.width.equalTo(327)
             make.height.equalTo(56)
@@ -322,39 +233,7 @@ class LoginView: UIView {
             make.horizontalEdges.equalToSuperview().inset(24)
             make.top.equalToSuperview().inset(543)
         }
-//        registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
-
         
-        alternativeSignINLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(605)
-            make.horizontalEdges.equalToSuperview().inset(24)
-        }
-
-        appleSSOButton.snp.makeConstraints { (make) in
-            make.horizontalEdges.equalToSuperview().inset(24)
-            make.top.equalToSuperview().inset(639)
-            make.width.equalTo(327)
-            make.height.equalTo(52)
-        }
-        
-        googleSSOButton.snp.makeConstraints { (make) in
-            make.horizontalEdges.equalToSuperview().inset(24)
-            make.top.equalToSuperview().inset(699)
-            make.width.equalTo(327)
-            make.height.equalTo(52)
-        }
-
-    }
     
-    //Copied this part
-    func isValidEmail(_ email: String) -> Bool {
-        let emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,64}$"
-        let emailPredicate = NSPredicate(format: "SELF MATCHES[c] %@", emailRegex)
-        return emailPredicate.evaluate(with: email)
     }
-    
-    @objc func registerButtonTapped() {
-        onRegisterTapped?()
-    }
-
 }

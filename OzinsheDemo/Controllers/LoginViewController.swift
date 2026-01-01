@@ -21,6 +21,11 @@ class LoginViewController: UIViewController {
             make.horizontalEdges.equalToSuperview()
             make.center.equalToSuperview()
         }
+        
+//        func if loginView.registerButtonTapped() == true {
+//            view.addSubview(RegistrationView)
+//        }
+        
     }
     
 
