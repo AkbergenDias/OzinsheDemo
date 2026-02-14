@@ -22,6 +22,12 @@ class LoginViewController: UIViewController {
             make.center.equalToSuperview()
         }
         
+        loginView.onNextTapped = { [weak self] in
+            let vc = HomeViewController()
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+
+        
 //        func if loginView.registerButtonTapped() == true {
 //            view.addSubview(RegistrationView)
 //        }

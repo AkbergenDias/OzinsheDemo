@@ -11,6 +11,7 @@ import SnapKit
 class LoginView: UIView {
     
     var onRegisterTapped: (() -> Void)?
+    var onNextTapped: (() -> Void)?
     
     lazy var titleLabel = {
         let view = UIView()
@@ -317,6 +318,7 @@ class LoginView: UIView {
             make.top.equalToSuperview().inset(463)
             make.horizontalEdges.equalToSuperview().inset(24)
         }
+        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         
         registerButton.snp.makeConstraints { (make) in
             make.horizontalEdges.equalToSuperview().inset(24)
@@ -355,6 +357,10 @@ class LoginView: UIView {
     
     @objc func registerButtonTapped() {
         onRegisterTapped?()
+    }
+    
+    @objc func nextButtonTapped() {
+        onNextTapped?()
     }
 
 }
