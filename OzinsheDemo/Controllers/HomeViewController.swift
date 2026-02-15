@@ -33,9 +33,9 @@ class HomeViewController: UIViewController {
         return view
     }()
     
-    var sectionDataSoucre: [[UIColor]] = [
-        [.systemBlue, .systemBlue, .systemBlue],
-        [.yellow, .yellow, .yellow]
+    var sectionDataSource: [[UIImage]] = [
+        [UIImage(named: "Image-6")!, UIImage(named: "Image-67")!, UIImage(named: "Image-67")!],
+        [UIImage(named: "Image-6")!, UIImage(named: "Image-6")!, UIImage(named: "Image-6")!]
     ]
     
     func setupUI() {
@@ -97,17 +97,16 @@ extension HomeViewController {
 // MARK: CollectionView DataSource
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sectionDataSoucre[section].count
+        return sectionDataSource[section].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.self.description(), for: indexPath) as! HomeCollectionViewCell
-        cell.backgroundColor = sectionDataSoucre[indexPath.section][indexPath.item]
         cell.layer.borderWidth = 16
         return cell
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return sectionDataSoucre.count
+        return sectionDataSource.count
     }
 }
