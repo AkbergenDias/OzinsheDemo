@@ -20,7 +20,7 @@ class HomeViewController: UIViewController {
     
     lazy var logoImageView: UIImageView = {
         let logo = UIImageView()
-        logo.image = UIImage(systemName: "logo-2")
+        logo.image = UIImage(named: "logo-2")
         return logo
     }()
     

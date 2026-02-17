@@ -23,7 +23,7 @@ class LoginViewController: UIViewController {
         }
         
         loginView.onNextTapped = { [weak self] in
-            let vc = HomeViewController()
+            let vc = TabBarViewController()
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
 
