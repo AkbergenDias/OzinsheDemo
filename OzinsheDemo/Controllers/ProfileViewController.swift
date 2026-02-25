@@ -10,7 +10,7 @@ import SnapKit
 
 class ProfileViewController: UIViewController {
     
-    var profileView = ProfileView()
+    let profileView = ProfileView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +23,11 @@ class ProfileViewController: UIViewController {
             make.horizontalEdges.equalToSuperview()
             make.center.equalToSuperview()
         }
+        
+        profileView.personalDataButtonTapped = { [weak self] in
+            let vc = ProfileEditViewController()
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
 
     }
 

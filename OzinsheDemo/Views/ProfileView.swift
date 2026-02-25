@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 class ProfileView: UIView {
+    
+    var personalDataButtonTapped: (() -> Void)?
 
     // MARK: UI elements
     
@@ -57,7 +59,6 @@ class ProfileView: UIView {
         
     }()
     
-    // TODO: Continue this
     lazy var personalDataButton = {
         let view = UIView()
         let button = UIButton(type: .custom)
@@ -84,6 +85,8 @@ class ProfileView: UIView {
             make.height.equalTo(64)
             make.width.equalToSuperview()
         }
+        
+        button.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
         
         subtitle.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(24)
@@ -301,5 +304,9 @@ class ProfileView: UIView {
         
         
     }
+    
+    @objc private func handleTap() {
+            personalDataButtonTapped?()
+        }
 
 }
