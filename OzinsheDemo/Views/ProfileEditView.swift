@@ -40,18 +40,21 @@ class ProfileEditView: UIView {
         addSubview(tableView)
         addSubview(saveButton)
         
+        tableView.separatorStyle = .none
+        
         tableView.register(EditFieldCell.self, forCellReuseIdentifier: "EditCell")
         
         tableView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().offset(24)
+            make.horizontalEdges.equalToSuperview().inset(24)
             make.top.equalToSuperview().offset(132)
+            make.bottom.equalTo(saveButton.snp.top).offset(-24)
         }
         
         saveButton.snp.makeConstraints { (make) in
             make.width.equalTo(327)
             make.height.equalTo(56)
-            make.top.equalTo(tableView.snp.bottom).offset(250)
             make.horizontalEdges.equalToSuperview().inset(24)
+            make.bottom.equalTo(safeAreaLayoutGuide).offset(-8)
         }
     }
 
@@ -61,6 +64,7 @@ class EditFieldCell: UITableViewCell {
     
     let textField = UITextField()
     let title = UILabel()
+    let bottomView = UIView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -74,6 +78,7 @@ class EditFieldCell: UITableViewCell {
     private func setupUI() {
         contentView.addSubview(textField)
         contentView.addSubview(title)
+        contentView.addSubview(bottomView)
         
 
         textField.font = UIFont(name:"SFProDisplay-Medium", size: 16)
@@ -83,15 +88,23 @@ class EditFieldCell: UITableViewCell {
         title.font = UIFont(name:"SFProDisplay-Bold", size: 14)
         title.textColor = UIColor(named: "9CA3AF")
 
-        
+        bottomView.backgroundColor = UIColor(named: "D1D5DB")
+
         textField.snp.makeConstraints { (make) in
             make.top.equalTo(title.snp.bottom).offset(8)
-            make.left.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-12)
         }
         
         title.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
             make.left.equalToSuperview()
+        }
+        
+        bottomView.snp.makeConstraints { make in
+            make.height.equalTo(1)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview().inset(0)
         }
         
     }
