@@ -11,6 +11,7 @@ import SnapKit
 class ProfileView: UIView {
     
     var personalDataButtonTapped: (() -> Void)?
+    var languageButtonTapped: (() -> Void)?
 
     // MARK: UI elements
     
@@ -161,6 +162,8 @@ class ProfileView: UIView {
             make.width.equalToSuperview()
         }
         
+        button.addTarget(self, action: #selector(handleTap2), for: .touchUpInside)
+        
         subtitle.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(24)
             make.bottom.equalToSuperview().offset(-24)
@@ -308,5 +311,8 @@ class ProfileView: UIView {
     @objc private func handleTap() {
             personalDataButtonTapped?()
         }
+    @objc private func handleTap2() {
+            languageButtonTapped?()
+    }
 
 }

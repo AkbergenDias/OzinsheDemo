@@ -28,6 +28,18 @@ class ProfileViewController: UIViewController {
             let vc = ProfileEditViewController()
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
+        
+        profileView.languageButtonTapped = { [weak self] in
+            let langVC = LangBottomSheetViewController()
+            
+            if let sheet = langVC.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+                sheet.preferredCornerRadius = 23
+                sheet.prefersGrabberVisible = true
+            }
+            self?.present(langVC, animated: true)
+            
+        }
 
     }
 
