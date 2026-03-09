@@ -33,7 +33,8 @@ class ProfileViewController: UIViewController {
             let langVC = LangBottomSheetViewController()
             
             if let sheet = langVC.sheetPresentationController {
-                sheet.detents = [.medium(), .large()]
+                let customDetent = UISheetPresentationController.Detent.custom { _ in return 303 }
+                sheet.detents = [customDetent]
                 sheet.preferredCornerRadius = 23
                 sheet.prefersGrabberVisible = true
             }
