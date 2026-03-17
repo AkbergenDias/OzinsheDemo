@@ -61,7 +61,7 @@ class PasswordChangeView: UIView {
     lazy var passwordLabelNew = {
         let label = UILabel()
         
-        label.text = "Құпия сөз"
+        label.text = "Құпия сөзді қайталаңыз"
         label.font = UIFont(name:"SFProDisplay-Bold", size: 14)
         label.textColor = UIColor(named: "111827")
         label.textAlignment = .left
@@ -107,6 +107,20 @@ class PasswordChangeView: UIView {
         return view
     }()
     
+    lazy var saveButton = {
+        let button = UIButton(type: .custom)
+        
+        button.setTitle("Өзгерістерді сақтау", for: .normal)
+        button.layer.cornerRadius = 12
+        button.titleLabel?.font = UIFont(name:"SFProDisplay-Bold", size: 16)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = UIColor(named: "7E2DFC")
+        button.isEnabled = true
+        button.isHidden = false
+        
+        return button
+    }()
+    
     override init(frame: CGRect) {
             super.init(frame: frame)
             setupUI()
@@ -123,26 +137,34 @@ class PasswordChangeView: UIView {
         addSubview(passwordLabelCurrent)
         addSubview(passwordLabelNew)
         addSubview(passwordFieldNew)
+        addSubview(saveButton)
         
         
         passwordLabelCurrent.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(24)
-            make.top.equalToSuperview().inset(304)
+            make.top.equalToSuperview().inset(132)
         }
         
         passwordFieldCurrent.snp.makeConstraints { (make) in
             make.horizontalEdges.equalToSuperview().inset(24)
-            make.top.equalToSuperview().inset(330)
+            make.top.equalToSuperview().inset(154)
         }
         
         passwordLabelNew.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(24)
-            make.top.equalToSuperview().inset(304)
+            make.top.equalToSuperview().inset(233)
         }
         
         passwordFieldNew.snp.makeConstraints { (make) in
             make.horizontalEdges.equalToSuperview().inset(24)
-            make.top.equalToSuperview().inset(330)
+            make.top.equalToSuperview().inset(255)
+        }
+        
+        saveButton.snp.makeConstraints { (make) in
+            make.width.equalTo(327)
+            make.height.equalTo(56)
+            make.horizontalEdges.equalToSuperview().inset(24)
+            make.bottom.equalTo(safeAreaLayoutGuide).offset(-8)
         }
         
     }

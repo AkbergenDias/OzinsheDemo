@@ -126,6 +126,8 @@ class ProfileView: UIView {
             make.width.equalToSuperview()
         }
         
+        button.addTarget(self, action: #selector(handleTap3), for: .touchUpInside)
+
         accessoryView.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(24)
             make.bottom.equalToSuperview().offset(-24)
@@ -305,8 +307,7 @@ class ProfileView: UIView {
             make.top.equalTo(languageSelectButton.snp.bottom)
             make.horizontalEdges.equalToSuperview().inset(24)
         }
-        
-        
+    
     }
     
     @objc private func handleTap() {
