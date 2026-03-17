@@ -25,7 +25,7 @@ class LangBottomSheetView: UIView {
     
     
     lazy var blurEffect: UIVisualEffectView = {
-        let blur = UIBlurEffect(style: .light)
+        let blur = UIBlurEffect(style: .extraLight)
         return UIVisualEffectView(effect: blur)
     }()
         
@@ -64,7 +64,7 @@ class LangBottomSheetView: UIView {
                 }
                 
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(24)
+            make.top.equalToSuperview().offset(58)
             make.left.equalToSuperview().inset(24)
         }
         

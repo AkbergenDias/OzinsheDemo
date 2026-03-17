@@ -12,6 +12,7 @@ class ProfileView: UIView {
     
     var personalDataButtonTapped: (() -> Void)?
     var languageButtonTapped: (() -> Void)?
+    var passwordChangeButtonTapped: (() -> Void)?
 
     // MARK: UI elements
     
@@ -314,5 +315,9 @@ class ProfileView: UIView {
     @objc private func handleTap2() {
             languageButtonTapped?()
     }
+    @objc private func handleTap3() {
+        passwordChangeButtonTapped?()
+    }
+    
 
 }

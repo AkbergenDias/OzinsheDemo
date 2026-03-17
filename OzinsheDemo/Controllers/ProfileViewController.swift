@@ -41,6 +41,11 @@ class ProfileViewController: UIViewController {
             self?.present(langVC, animated: true)
             
         }
+        
+        profileView.passwordChangeButtonTapped = { [weak self] in
+            let vc = PasswordChangeViewController()
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
 
     }
 
