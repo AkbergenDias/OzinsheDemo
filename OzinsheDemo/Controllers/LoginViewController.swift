@@ -27,12 +27,12 @@ class LoginViewController: UIViewController {
             let vc = TabBarViewController()
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
+        
+        loginView.onRegisterTapped = { [weak self] in
+        let regVC = RegistrationViewController()
+            self?.navigationController?.pushViewController(regVC, animated: true)
+        }
 
-        
-//        func if loginView.registerButtonTapped() == true {
-//            view.addSubview(RegistrationView)
-//        }
-        
     }
     
 

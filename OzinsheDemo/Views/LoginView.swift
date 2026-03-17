@@ -178,12 +178,16 @@ class LoginView: UIView {
         
         label.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
+            make.top.bottom.equalToSuperview()
         }
         
         button.snp.makeConstraints { make in
+            make.centerY.equalTo(label)
             make.right.equalTo(label.snp.right).offset(56)
-            make.height.equalTo(14)
+            make.height.equalTo(16)
         }
+
+        button.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         
         return view
     }()
@@ -324,8 +328,6 @@ class LoginView: UIView {
             make.horizontalEdges.equalToSuperview().inset(24)
             make.top.equalToSuperview().inset(543)
         }
-//        registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
-
         
         alternativeSignINLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(605)
@@ -357,6 +359,7 @@ class LoginView: UIView {
     
     @objc func registerButtonTapped() {
         onRegisterTapped?()
+        print("Reg tapped")
     }
     
     @objc func nextButtonTapped() {

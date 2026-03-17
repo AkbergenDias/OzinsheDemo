@@ -9,12 +9,14 @@ import UIKit
 
 class RegistrationView: UIView {
     
+    var onLoginTapped: (() -> Void)?
+    
     lazy var titleLabel = {
         let view = UIView()
         let label = UILabel()
         let subtitleLabel = UILabel()
         
-        label.text = "Тіркелу!"
+        label.text = "Тіркелу"
         label.font = UIFont(name:"SFProDisplay-Bold", size: 24)
         label.textColor = UIColor(named: "111827")
         label.textAlignment = .left
@@ -131,6 +133,56 @@ class RegistrationView: UIView {
         return view
     }()
     
+    lazy var passwordLabel2 = {
+        let label = UILabel()
+        
+        label.text = "Құпия сөзді қайталаңыз"
+        label.font = UIFont(name:"SFProDisplay-Bold", size: 14)
+        label.textColor = UIColor(named: "111827")
+        label.textAlignment = .left
+        
+        return label
+    }()
+    
+    
+    lazy var passwordFieldFrame2 = {
+        let view = UIView()
+        let passwordField = UITextField()
+        let imageView = UIImageView(image: UIImage(named: "Password"))
+        let hideButton = UIButton()
+        
+        passwordField.placeholder = "Сіздің құпия сөзіңіз"
+        passwordField.textAlignment = .left
+        passwordField.font = UIFont(name:"SFProDisplay-Bold", size: 16)
+        passwordField.textColor = UIColor(named: "111827")
+        
+        hideButton.setImage(UIImage(named: "Show"), for: .normal)
+        
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 12
+        view.layer.borderColor = UIColor(named: "E5E7EB")?.cgColor
+        
+        view.addSubview(imageView)
+        view.addSubview(passwordField)
+        view.addSubview(hideButton)
+        
+        imageView.snp.makeConstraints { make in
+            make.verticalEdges.equalToSuperview().inset(18)
+            make.left.equalTo(view).inset(16)
+        }
+        hideButton.snp.makeConstraints { make in
+            make.right.equalTo(view).inset(16)
+            make.verticalEdges.equalTo(view).inset(16)
+        }
+        passwordField.snp.makeConstraints { make in
+            make.left.equalTo(imageView).inset(26)
+            make.verticalEdges.equalTo(view).inset(16)
+            make.right.equalTo(hideButton).inset(26)
+        }
+        
+        return view
+    }()
+    
     
     lazy var nextButton = {
         let button = UIButton(type: .custom)
@@ -144,17 +196,17 @@ class RegistrationView: UIView {
         return button
     }()
     
-    lazy var registerButton = {
+    lazy var loginButton = {
         let view = UIView()
         let label = UILabel()
         let button = UIButton()
         
-        label.text = "Аккаунтыныз жоқ па?"
+        label.text = "Сізде аккаунт бар ма?"
         label.font = UIFont(name:"SFProDisplay-Regular", size: 14)
         label.textColor = UIColor(named: "6B7280")
         label.textAlignment = .center
         
-        button.setTitle("Тіркелу", for: .normal)
+        button.setTitle("Кіру", for: .normal)
         button.setTitleColor(UIColor(named: "B376F7"), for: .normal)
         button.titleLabel?.font = UIFont(name:"SFProDisplay-Medium", size: 14)
         button.titleLabel?.textAlignment = .left
@@ -164,12 +216,16 @@ class RegistrationView: UIView {
         
         label.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
+            make.top.bottom.equalToSuperview()
         }
         
         button.snp.makeConstraints { make in
+            make.centerY.equalTo(label)
             make.right.equalTo(label.snp.right).offset(56)
-            make.height.equalTo(14)
+            make.height.equalTo(16)
         }
+        
+        button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         
         return view
     }()
@@ -193,8 +249,10 @@ class RegistrationView: UIView {
         addSubview(loginFieldFrame)
         addSubview(passwordLabel)
         addSubview(passwordFieldFrame)
+        addSubview(passwordLabel2)
+        addSubview(passwordFieldFrame2)
         addSubview(nextButton)
-        addSubview(registerButton)
+        addSubview(loginButton)
         
         titleLabel.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(24)
@@ -221,19 +279,32 @@ class RegistrationView: UIView {
             make.top.equalToSuperview().inset(330)
         }
         
+        passwordLabel2.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(24)
+            make.top.equalToSuperview().inset(397)
+        }
+        
+        passwordFieldFrame2.snp.makeConstraints { (make) in
+            make.horizontalEdges.equalToSuperview().inset(24)
+            make.top.equalToSuperview().inset(423)
+        }
         
         nextButton.snp.makeConstraints { (make) in
             make.width.equalTo(327)
             make.height.equalTo(56)
-            make.top.equalToSuperview().inset(463)
+            make.top.equalToSuperview().inset(517)
             make.horizontalEdges.equalToSuperview().inset(24)
         }
         
-        registerButton.snp.makeConstraints { (make) in
+        loginButton.snp.makeConstraints { (make) in
             make.horizontalEdges.equalToSuperview().inset(24)
-            make.top.equalToSuperview().inset(543)
+            make.top.equalToSuperview().inset(597)
         }
-        
+
+    }
     
+    @objc func loginButtonTapped() {
+        onLoginTapped?()
+        print("Login tapped")
     }
 }
