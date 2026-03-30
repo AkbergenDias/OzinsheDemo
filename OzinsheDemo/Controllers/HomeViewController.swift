@@ -102,6 +102,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.self.description(), for: indexPath) as! HomeCollectionViewCell
+        
+        let CurrentImage = sectionDataSource[indexPath.section][indexPath.row]
+        
+        cell.setupImage(CurrentImage)
         cell.layer.borderWidth = 16
         return cell
     }
