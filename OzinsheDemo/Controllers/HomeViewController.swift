@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 class HomeViewController: UIViewController {
+    
+    let homeView = HomeView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,50 +20,31 @@ class HomeViewController: UIViewController {
 
     }
     
-    lazy var logoImageView: UIImageView = {
-        let logo = UIImageView()
-        logo.image = UIImage(named: "logo-2")
-        return logo
-    }()
-    
-    lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        return view
-    }()
-    
     var sectionDataSource: [[UIImage]] = [
         [UIImage(named: "Image-6")!, UIImage(named: "Image-67")!, UIImage(named: "Image-67")!],
         [UIImage(named: "Image-6")!, UIImage(named: "Image-6")!, UIImage(named: "Image-6")!]
     ]
     
     func setupUI() {
-        view.addSubview(logoImageView)
-        self.view.addSubview(collectionView)
+        view.addSubview(homeView)
         
-        logoImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(60)
-            make.left.equalToSuperview().inset(24)
-        }
-        collectionView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(132)
-            make.leading.trailing.bottom.equalToSuperview()
+        homeView.snp.makeConstraints { make in
+            make.verticalEdges.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
+            make.center.equalToSuperview()
         }
         
     }
     private func setupCollectionview() {
         registerCells()
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.setCollectionViewLayout(createLayout(), animated: false)
+        homeView.collectionView.dataSource = self
+        homeView.collectionView.delegate = self
+        homeView.collectionView.setCollectionViewLayout(createLayout(), animated: false)
         
     }
     
     private func registerCells() {
-        collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.self.description())
+        homeView.collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.self.description())
     }
 
 }
