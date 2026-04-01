@@ -21,8 +21,8 @@ class HomeViewController: UIViewController {
     }
     
     var sectionDataSource: [[UIImage]] = [
-        [UIImage(named: "Image-6")!, UIImage(named: "Image-67")!, UIImage(named: "Image-67")!],
-        [UIImage(named: "Image-6")!, UIImage(named: "Image-6")!, UIImage(named: "Image-6")!]
+        [UIImage(named: "Splash Screen")!, UIImage(named: "Image-67")!, UIImage(named: "Image-67")!],
+        [UIImage(named: "Splash Screen")!, UIImage(named: "Splash Screen")!, UIImage(named: "Splash Screen")!]
     ]
     
     func setupUI() {
@@ -61,8 +61,8 @@ extension HomeViewController {
     }
     
     private func createSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                             heightDimension: .fractionalHeight(1.0))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
+                                              heightDimension: .fractionalHeight(0.5))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
       
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
@@ -89,7 +89,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let CurrentImage = sectionDataSource[indexPath.section][indexPath.row]
         
         cell.setupImage(CurrentImage)
-        cell.layer.borderWidth = 16
+        cell.layer.borderWidth = 5
         return cell
     }
     
