@@ -10,11 +10,12 @@ import SnapKit
 
 class HomeCollectionViewCell: UICollectionViewCell {
     
-    lazy var imageView: UIImageView = {
-        let ImageView = UIImageView()
-        ImageView.contentMode = .scaleAspectFill
-        ImageView.clipsToBounds = true
-        return ImageView
+    lazy var cellImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 8
+        return imageView
     }()
     
     lazy var titleLabel = {
@@ -36,23 +37,28 @@ class HomeCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.addSubview(imageView)
+        contentView.addSubview(cellImageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(subtitleLabel)
         
-        imageView.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
+        titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        subtitleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        
+        cellImageView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalTo(contentView)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom).offset(16)
+            make.top.equalTo(cellImageView.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview()
         }
         
         subtitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(contentView)
         }
+        subtitleLabel.numberOfLines = 2
     }
     
     required init?(coder: NSCoder) {
@@ -61,7 +67,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     
     func setupImage(_ image: UIImage) {
-        imageView.image = image
+        cellImageView.image = image
     }
 
 }

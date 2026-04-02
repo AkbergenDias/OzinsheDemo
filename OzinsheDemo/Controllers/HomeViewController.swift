@@ -21,8 +21,9 @@ class HomeViewController: UIViewController {
     }
     
     var sectionDataSource: [[UIImage]] = [
-        [UIImage(named: "Splash Screen")!, UIImage(named: "Image-67")!, UIImage(named: "Image-67")!],
-        [UIImage(named: "Splash Screen")!, UIImage(named: "Splash Screen")!, UIImage(named: "Splash Screen")!]
+        [UIImage(named: "Image-6")!, UIImage(named: "Image-67")!, UIImage(named: "Image-67")!],
+        [UIImage(named: "Image-2")!, UIImage(named: "Image-67")!, UIImage(named: "Image-67")!],
+        [UIImage(named: "Image-3")!, UIImage(named: "Image-4")!, UIImage(named: "Image-5")!]
     ]
     
     func setupUI() {
@@ -57,84 +58,35 @@ extension HomeViewController {
         return layout
     }
     private func getSectionFor(index: Int) -> NSCollectionLayoutSection {
-        return createSection()
+        switch index {
+        case 0:
+            return createSection(height: 240, peakWidth: 0.9)
+        case 1:
+            return createSection(height: 196, peakWidth: 0.6)
+        default:
+            return createSection(height: 264, peakWidth: 0.3)
+        }
     }
+  
+
+
     
-    private func createSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
-                                              heightDimension: .fractionalHeight(0.5))
+    private func createSection(height: CGFloat, peakWidth: CGFloat) -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                              heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
       
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .absolute(240))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(peakWidth),
+                                               heightDimension: .absolute(height))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                          subitems: [item])
       
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
+        section.contentInsets.bottom = 32
+        section.interGroupSpacing = 16
         return section
     }
-    
-    private func createMainBannerSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                              heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-      
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .absolute(240))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                         subitems: [item])
-      
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .continuous
-        return section
-    }
-    
-    private func createContinueWatchingSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                              heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-      
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .absolute(240))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                         subitems: [item])
-      
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .continuous
-        return section
-    }
-    
-    private func createCategorySection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                              heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-      
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .absolute(240))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                         subitems: [item])
-      
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .continuous
-        return section
-    }
-    
-    private func createGenreSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                              heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-      
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .absolute(240))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                         subitems: [item])
-      
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .continuous
-        return section
-    }
-    
     
 }
 
@@ -151,7 +103,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let CurrentImage = sectionDataSource[indexPath.section][indexPath.row]
         
         cell.setupImage(CurrentImage)
-        cell.layer.borderWidth = 5
         return cell
     }
     

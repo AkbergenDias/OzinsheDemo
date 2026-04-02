@@ -12,7 +12,7 @@ class HomeView: UIView {
 
     lazy var logoImageView: UIImageView = {
         let logo = UIImageView()
-        logo.image = UIImage(named: "logo-2")
+        logo.image = UIImage(named: "logo-1")
         return logo
     }()
     
@@ -39,12 +39,16 @@ class HomeView: UIView {
         addSubview(collectionView)
         
         logoImageView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).inset(16)
+            make.top.equalTo(safeAreaLayoutGuide).offset(16)
             make.left.equalToSuperview().inset(24)
+            make.height.equalTo(40)
+            make.width.equalTo(94)
         }
         collectionView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(132)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.top.equalTo(logoImageView.snp.bottom).offset(32)
+            make.bottom.equalToSuperview()
+            make.left.equalToSuperview().inset(24)
+            make.right.equalToSuperview()
         }
     }
     
