@@ -12,6 +12,18 @@ class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
+        
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        appearance.shadowColor = nil
+        
+        tabBar.standardAppearance = appearance
+        
+        if #available(iOS 15.0, *) {
+                tabBar.scrollEdgeAppearance = appearance
+            }
         
         setupTabs()
     }

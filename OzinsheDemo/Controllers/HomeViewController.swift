@@ -69,9 +69,9 @@ extension HomeViewController {
     private func getSectionFor(index: Int) -> NSCollectionLayoutSection {
         switch index {
         case 0:
-            return createSection(height: 240, peakWidth: 0.9, showHeader: false)
+            return createSection(height: 240, peakWidth: 0.8, showHeader: false)
         case 1:
-            return createSection(height: 196, peakWidth: 0.6, showHeader: true)
+            return createSection(height: 196, peakWidth: 0.5, showHeader: true)
         default:
             return createSection(height: 264, peakWidth: 0.3, showHeader: true)
         }
@@ -109,6 +109,7 @@ extension HomeViewController {
         
         section.orthogonalScrollingBehavior = .continuous
         section.contentInsets.bottom = 32
+        section.contentInsets.leading = 24
         section.interGroupSpacing = 16
         
         return section

@@ -12,7 +12,7 @@ class HomeView: UIView {
 
     lazy var logoImageView: UIImageView = {
         let logo = UIImageView()
-        logo.image = UIImage(named: "logo-1")
+        logo.image = UIImage(named: "logo-2-cropped")
         return logo
     }()
     
@@ -47,7 +47,7 @@ class HomeView: UIView {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(logoImageView.snp.bottom).offset(32)
             make.bottom.equalToSuperview()
-            make.left.equalToSuperview().inset(24)
+            make.left.equalToSuperview()
             make.right.equalToSuperview()
         }
     }

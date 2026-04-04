@@ -25,7 +25,19 @@ class LoginViewController: UIViewController {
         
         loginView.onNextTapped = { [weak self] in
             let vc = TabBarViewController()
-                self?.navigationController?.pushViewController(vc, animated: true)
+            
+            guard let window = self?.view.window else { return }
+            
+            window.rootViewController = vc
+            
+            UIView.transition(
+                with: window,
+                duration: 0.3,
+                options: .transitionCrossDissolve,
+                animations: nil,
+                completion: nil
+            )
+            
             }
         
         loginView.onRegisterTapped = { [weak self] in
