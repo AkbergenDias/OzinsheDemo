@@ -11,10 +11,23 @@ import SnapKit
 class ProfileViewController: UIViewController {
     
     let profileView = ProfileView()
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        let exitButton = UIBarButtonItem(
+            image: UIImage(named: "Esc-button"),
+            style: .plain,
+            target: self,
+            action: #selector(exitButtonTapped)
+        )
+        self.navigationItem.rightBarButtonItem = exitButton
         
         view.addSubview(profileView)
         
@@ -47,6 +60,10 @@ class ProfileViewController: UIViewController {
             self?.navigationController?.pushViewController(passwordVC, animated: true)
         }
 
+    }
+    
+    @objc func exitButtonTapped (){
+        print("Exit tapped")
     }
 
 }
