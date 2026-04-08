@@ -11,14 +11,6 @@ import SnapKit
 class HomeViewController: UIViewController {
     
     let homeView = HomeView()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-        setupUI()
-        setupCollectionview()
-
-    }
     
     var sectionDataSource: [[UIImage]] = [
         [UIImage(named: "Image-6")!, UIImage(named: "Image-67")!, UIImage(named: "Image-67")!],
@@ -27,14 +19,20 @@ class HomeViewController: UIViewController {
     ]
     
     var sectionHeaderData: [String] = ["", "Қарауды жалғастырыңыз", "Трендтегілер"]
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        setupUI()
+        setupCollectionview()
+    }
+
     
     func setupUI() {
         view.addSubview(homeView)
         
         homeView.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview()
-            make.horizontalEdges.equalToSuperview()
-            make.center.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         
     }
