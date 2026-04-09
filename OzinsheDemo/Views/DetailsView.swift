@@ -14,9 +14,16 @@ class DetailsView: UIView {
         let thumbnail = UIImageView()
         thumbnail.image = UIImage(named: "Image-3")
         thumbnail.backgroundColor = .black
-        thumbnail.alpha = 0.5
+        thumbnail.alpha = 0.9
         thumbnail.contentMode = .scaleAspectFill
         return thumbnail
+    }()
+    
+    lazy var gradientLayer: CAGradientLayer = {
+        let gradient = CAGradientLayer()
+        gradient.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.8).cgColor]
+        gradient.locations = [0.5, 1.0]
+        return gradient
     }()
     
     lazy var shareLabel = {
@@ -84,6 +91,7 @@ class DetailsView: UIView {
         label.font = UIFont(name:"SFProDisplay-Regular", size: 14)
         label.textColor = UIColor(named: "9CA3AF")
         label.textAlignment = .left
+        label.numberOfLines = .max
         
         return label
     }()
@@ -118,6 +126,35 @@ class DetailsView: UIView {
         return view
     }()
     
+    lazy var scrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.showsVerticalScrollIndicator = false
+        scroll.backgroundColor = .clear
+        return scroll
+    }()
+    
+    lazy var scrollContentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    lazy var whiteContentArea: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 32
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        return view
+    }()
+    
+    lazy var thumbnailTransparentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    
+    
     override init(frame: CGRect) {
             super.init(frame: frame)
             setupUI()
@@ -127,19 +164,40 @@ class DetailsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //THis part is ai didn't know about this
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // This ensures the gradient always fills the current size of the image view
+        gradientLayer.frame = thumbnailImageView.bounds
+    }
+    
     func setupUI() {
+        
+        //Static elements
         addSubview(thumbnailImageView)
-        addSubview(collectionView)
+        thumbnailImageView.layer.addSublayer(gradientLayer)
         addSubview(playButton)
-        addSubview(bookmarkLabel)
-        addSubview(shareLabel)
         addSubview(bookmarkButton)
+        addSubview(bookmarkLabel)
         addSubview(shareButton)
-        addSubview(titleStack)
-        addSubview(movieDescription)
-        addSubview(bottomView1)
-        addSubview(bottomView2)
-        addSubview(showDescription)
+        addSubview(shareLabel)
+        
+        //Scroll
+        addSubview(scrollView)
+        scrollView.addSubview(scrollContentView)
+        
+        //ScrollComponents
+        scrollContentView.addSubview(thumbnailTransparentView)
+        scrollContentView.addSubview(whiteContentArea)
+        
+        //White part details
+
+        whiteContentArea.addSubview(titleStack)
+        whiteContentArea.addSubview(bottomView1)
+        whiteContentArea.addSubview(movieDescription)
+        whiteContentArea.addSubview(showDescription)
+        whiteContentArea.addSubview(bottomView2)
+        whiteContentArea.addSubview(collectionView)
         
         
         thumbnailImageView.snp.makeConstraints { make in
@@ -148,13 +206,13 @@ class DetailsView: UIView {
         }
         
         playButton.snp.makeConstraints { make in
-            make.bottom.equalTo(collectionView.snp.top).offset(-38)
+            make.top.equalToSuperview().offset(222)
             make.centerX.equalToSuperview()
         }
         
         shareButton.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(69)
-            make.bottom.equalTo(collectionView.snp.top).offset(-50)
+            make.top.equalToSuperview().offset(234)
         }
         
         shareLabel.snp.makeConstraints { make in
@@ -164,33 +222,69 @@ class DetailsView: UIView {
         
         bookmarkButton.snp.makeConstraints { make in
             make.right.equalToSuperview().inset(69)
-            make.bottom.equalTo(collectionView.snp.top).offset(-50)
+            make.top.equalToSuperview().offset(234)
         }
         bookmarkLabel.snp.makeConstraints { make in
             make.top.equalTo(bookmarkButton.snp.bottomMargin).offset(10)
             make.centerX.equalTo(bookmarkButton.snp.centerX)
         }
         
+        //Scroll
+        
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
+        scrollContentView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            make.width.equalToSuperview()
+        }
+        
+        thumbnailTransparentView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.right.equalToSuperview()
+            make.height.equalTo(230)
+        }
+
+        whiteContentArea.snp.makeConstraints { make in
+            make.top.equalTo(thumbnailTransparentView.snp.bottom)
+            make.left.right.bottom.equalToSuperview()
+        }
+        
+        //White part details
+
         titleStack.snp.makeConstraints { make in
-            make.top.equalTo(thumbnailImageView.snp.bottom).offset(24)
+            make.top.equalToSuperview().offset(24)
             make.horizontalEdges.equalToSuperview().inset(24)
         }
         
         // Divider height constraints
         bottomView1.snp.makeConstraints { make in
-            make.height.equalTo(1)
             make.top.equalTo(titleStack.snp.bottom).offset(24)
+            make.left.right.equalToSuperview().inset(24)
+            make.height.equalTo(1)
+        }
+
+        movieDescription.snp.makeConstraints { make in
+            make.top.equalTo(bottomView1.snp.bottom).offset(24)
+            make.left.right.equalToSuperview().inset(24)
         }
         
+        showDescription.snp.makeConstraints { make in
+            make.top.equalTo(movieDescription.snp.bottom).offset(12)
+            make.left.equalToSuperview().offset(24)
+        }
+
         bottomView2.snp.makeConstraints { make in
+            make.top.equalTo(showDescription.snp.bottom).offset(24)
+            make.left.right.equalToSuperview().inset(24)
             make.height.equalTo(1)
         }
         
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(bottomView1.snp.bottom).offset(24)
-            make.bottom.equalToSuperview()
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
+            make.top.equalTo(bottomView2.snp.bottom).offset(24)
+            make.bottom.left.right.equalToSuperview()
+            make.height.equalTo(800)
         }
     }
 
