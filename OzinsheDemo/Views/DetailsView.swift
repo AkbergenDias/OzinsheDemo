@@ -75,7 +75,7 @@ class DetailsView: UIView {
             let tagsLabel = UILabel()
             tagsLabel.text = "2020 Телехикая 5 сезон, 46 серия, 7 мин"
             tagsLabel.font = UIFont(name: "SFProDisplay-Semibold", size: 12)
-            tagsLabel.textColor = UIColor(named: "111827")
+            tagsLabel.textColor = UIColor(named: "9CA3AF")
         
         let stackView = UIStackView(arrangedSubviews: [titleLabel, tagsLabel])
         stackView.axis = .vertical
@@ -94,6 +94,13 @@ class DetailsView: UIView {
         label.numberOfLines = .max
         
         return label
+    }()
+    
+    lazy var gradientLayerForMovieDesc: CAGradientLayer = {
+        let gradient = CAGradientLayer()
+        gradient.colors = [UIColor.clear.cgColor, UIColor.white.withAlphaComponent(0.8).cgColor]
+        gradient.locations = [0.5, 1.0]
+        return gradient
     }()
     
     lazy var bottomView1 = {
@@ -116,13 +123,61 @@ class DetailsView: UIView {
         return button
     }()
     
+    lazy var chaptersButton = {
+        let view = UIView()
+        let button = UIButton(type: .custom)
+        let subtitle = UILabel()
+        let accessoryView = UIImageView(image: UIImage(named: "Chevron-Right-Outline"))
+        
+        button.setTitle("Бөлімдер", for: .normal)
+        button.titleLabel?.font = UIFont(name:"SFProDisplay-Medium", size: 16)
+        button.setTitleColor(UIColor(named: "111827"), for: .normal)
+        button.backgroundColor = .white
+        button.contentHorizontalAlignment = .left
+        
+        subtitle.text = "5 сезон 46 серия"
+        subtitle.font = UIFont(name:"SFProDisplay-Medium", size: 12)
+        subtitle.textColor = UIColor(named: "9CA3AF")
+        subtitle.textAlignment = .right
+        
+        view.addSubview(button)
+        view.addSubview(subtitle)
+        view.addSubview(accessoryView)
+        
+        button.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+            make.height.equalTo(48)
+        }
+        
+        //button.addTarget(self, action: #selector(PICK SELECTOR), for: .touchUpInside)
+        
+        subtitle.snp.makeConstraints { (make) in
+            make.right.equalTo(accessoryView.snp.left).offset(-8)
+            make.centerY.equalToSuperview()
+        }
+        
+        accessoryView.snp.makeConstraints { (make) in
+            make.right.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        
+        return view
+        
+    }()
+    
+    lazy var toggleSwitch: UISwitch = {
+       let toggle = UISwitch()
+        toggle.onTintColor = UIColor(named: "B376F7")
+        toggle.isOn = false
+        return toggle
+    }()
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
-        view.layer.cornerRadius = 32
         return view
     }()
     
@@ -195,8 +250,10 @@ class DetailsView: UIView {
         whiteContentArea.addSubview(titleStack)
         whiteContentArea.addSubview(bottomView1)
         whiteContentArea.addSubview(movieDescription)
+        movieDescription.layer.addSublayer(gradientLayerForMovieDesc)
         whiteContentArea.addSubview(showDescription)
         whiteContentArea.addSubview(bottomView2)
+        whiteContentArea.addSubview(chaptersButton)
         whiteContentArea.addSubview(collectionView)
         
         
@@ -281,8 +338,14 @@ class DetailsView: UIView {
             make.height.equalTo(1)
         }
         
-        collectionView.snp.makeConstraints { make in
+        chaptersButton.snp.makeConstraints { make in
             make.top.equalTo(bottomView2.snp.bottom).offset(24)
+            make.left.right.equalToSuperview().inset(24)
+            make.height.equalTo(24)
+        }
+        
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(chaptersButton.snp.bottom).offset(32)
             make.bottom.left.right.equalToSuperview()
             make.height.equalTo(800)
         }
