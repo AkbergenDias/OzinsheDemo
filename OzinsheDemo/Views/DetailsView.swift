@@ -146,7 +146,6 @@ class DetailsView: UIView {
         
         button.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
-            make.height.equalTo(48)
         }
         
         //button.addTarget(self, action: #selector(PICK SELECTOR), for: .touchUpInside)
