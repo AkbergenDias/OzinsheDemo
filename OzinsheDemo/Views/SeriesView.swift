@@ -9,9 +9,25 @@ import UIKit
 
 class SeriesView: UIView {
     
-//    for i in 1..10 {
-//        let button = UIButton(type: .system)
-//        button.setTitle("\(i)", for: .normal)
-//    }
+    lazy var tableView: UITableView = {
+            let table = UITableView()
+            table.backgroundColor = .white
+            table.separatorStyle = .none
+            table.register(SeriesTableViewCell.self, forCellReuseIdentifier: "SeriesCell")
+            return table
+        }()
+
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            addSubview(tableView)
+            tableView.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+            }
+        }
+
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    
 
 }

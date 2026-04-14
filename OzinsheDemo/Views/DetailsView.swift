@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 class DetailsView: UIView {
+    
+    var playButtonTapped: (() -> Void)?
 
     lazy var thumbnailImageView: UIImageView = {
         let thumbnail = UIImageView()
@@ -51,6 +53,8 @@ class DetailsView: UIView {
     lazy var playButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "Play"), for: .normal)
+        
+        button.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
         return button
     }()
     
@@ -148,8 +152,6 @@ class DetailsView: UIView {
             make.edges.equalToSuperview()
         }
         
-        //button.addTarget(self, action: #selector(PICK SELECTOR), for: .touchUpInside)
-        
         subtitle.snp.makeConstraints { (make) in
             make.right.equalTo(accessoryView.snp.left).offset(-8)
             make.centerY.equalToSuperview()
@@ -230,11 +232,6 @@ class DetailsView: UIView {
         //Static elements
         addSubview(thumbnailImageView)
         thumbnailImageView.layer.addSublayer(gradientLayer)
-        addSubview(playButton)
-        addSubview(bookmarkButton)
-        addSubview(bookmarkLabel)
-        addSubview(shareButton)
-        addSubview(shareLabel)
         
         //Scroll
         addSubview(scrollView)
@@ -243,9 +240,14 @@ class DetailsView: UIView {
         //ScrollComponents
         scrollContentView.addSubview(thumbnailTransparentView)
         scrollContentView.addSubview(whiteContentArea)
+        //Upper buttons
+        scrollContentView.addSubview(playButton)
+        scrollContentView.addSubview(bookmarkButton)
+        scrollContentView.addSubview(bookmarkLabel)
+        scrollContentView.addSubview(shareButton)
+        scrollContentView.addSubview(shareLabel)
         
         //White part details
-
         whiteContentArea.addSubview(titleStack)
         whiteContentArea.addSubview(bottomView1)
         whiteContentArea.addSubview(movieDescription)
@@ -255,33 +257,34 @@ class DetailsView: UIView {
         whiteContentArea.addSubview(chaptersButton)
         whiteContentArea.addSubview(collectionView)
         
-        
         thumbnailImageView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(340)
         }
         
         playButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(222)
             make.centerX.equalToSuperview()
+            make.bottom.equalTo(whiteContentArea.snp.top).offset(-38)
+            make.size.equalTo(64)
         }
         
         shareButton.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(69)
-            make.top.equalToSuperview().offset(234)
+            make.centerY.equalTo(playButton.snp.centerY)
+            make.right.equalToSuperview().inset(57)
         }
-        
+
         shareLabel.snp.makeConstraints { make in
-            make.top.equalTo(shareButton.snp.bottomMargin).offset(10)
+            make.top.equalTo(shareButton.snp.bottom).offset(10)
             make.centerX.equalTo(shareButton.snp.centerX)
         }
-        
+
         bookmarkButton.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(69)
-            make.top.equalToSuperview().offset(234)
+            make.centerY.equalTo(playButton.snp.centerY)
+            make.left.equalToSuperview().offset(57)
         }
+
         bookmarkLabel.snp.makeConstraints { make in
-            make.top.equalTo(bookmarkButton.snp.bottomMargin).offset(10)
+            make.top.equalTo(bookmarkButton.snp.bottom).offset(10)
             make.centerX.equalTo(bookmarkButton.snp.centerX)
         }
         
@@ -348,6 +351,11 @@ class DetailsView: UIView {
             make.bottom.left.right.equalToSuperview()
             make.height.equalTo(800)
         }
+    }
+    
+    @objc func handleTap() {
+        playButtonTapped?()
+        print("Play Button tapped")
     }
 
 }

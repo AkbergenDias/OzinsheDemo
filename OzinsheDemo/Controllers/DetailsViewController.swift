@@ -24,6 +24,12 @@ class DetailsViewController: UIViewController {
         view.backgroundColor = .white
         setupUI()
         setupCollectionview()
+        
+        
+        detailsView.playButtonTapped = { [weak self] in
+            let vc = SeriesViewController()
+                self?.navigationController?.pushViewController(vc, animated: true)
+        }
 
     }
 
