@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        } else {
 //            window?.rootViewController = UINavigationController(rootViewController: TabBarViewController())
 //        }
-        let nav = UINavigationController(rootViewController: DetailsViewController())
+        let nav = UINavigationController(rootViewController: VideoPlayerViewController())
         window?.rootViewController = nav
 
         
