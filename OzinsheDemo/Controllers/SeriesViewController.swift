@@ -36,6 +36,15 @@ class SeriesViewController: UIViewController, UITableViewDataSource, UITableView
             return seriesList.count
         }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = VideoPlayerViewController()
+        
+        vc.modalPresentationStyle = .fullScreen
+        
+        self.present(vc, animated: true)
+        
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SeriesCell", for: indexPath)
         return cell
